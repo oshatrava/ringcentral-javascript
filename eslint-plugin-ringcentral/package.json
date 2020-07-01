@@ -8,13 +8,29 @@
     "eslint-plugin"
   ],
   "author": "ledamint",
-  "main": "lib/rules/index.js",
+  "main": "lib/index.js",
   "scripts": {
-    "test": "mocha tests --recursive"
+    "mocha": "mocha",
+    "test": "yarn mocha",
+    "test:all": "yarn mocha tests/lib/**/*.js",
+    "watch": "yarn test --watch",
+    "lint": "eslint ./",
+    "ts": "tsc",
+    "postlint": "yarn lint",
+    "pretest": "yarn ts"
   },
+  "dependencies": {},
   "devDependencies": {
-    "eslint": "^6.7.2",
-    "mocha": "^6.2.2"
+    "@typescript-eslint/eslint-plugin": "2.24.0",
+    "@typescript-eslint/parser": "^2.34.0",
+    "babel-eslint": "^8.2.6",
+    "eslint": "7.2.0",
+    "eslint-module-utils": "^2.6.0",
+    "eslint-plugin-eslint-plugin": "^2.2.2",
+    "eslint-plugin-import": "^2.21.2",
+    "mocha": "^6.2.2",
+    "typescript": "^3.9.5",
+    "typescript-eslint-parser": "^20.1.1"
   },
   "engines": {
     "node": ">=8.0.0"
