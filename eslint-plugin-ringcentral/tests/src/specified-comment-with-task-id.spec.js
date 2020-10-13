@@ -1,5 +1,5 @@
 const RuleTester = require('eslint').RuleTester;
-const rule = require('../../lib/rules/specified-comment-with-task-id');
+const rule = require('../../src/rules/specified-comment-with-task-id');
 
 const ruleTester = new RuleTester();
 const error = {

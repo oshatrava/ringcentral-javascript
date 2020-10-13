@@ -12,5 +12,5 @@
         "noImplicitThis": true,
         "alwaysStrict": false,
     },
-    "include": ["lib"],
+    "include": ["src"],
 }
