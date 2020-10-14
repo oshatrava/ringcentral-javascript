@@ -5,6 +5,7 @@ const {
 } = require('./rules');
 
 module.exports = {
+    IGNORE: `${PLUGIN_NAME}/ignore`,
     SPECIFIED_COMMENT_WITH_TASK_ID: `${PLUGIN_NAME}/${SPECIFIED_COMMENT_WITH_TASK_ID}`,
     RESTRICT_UNWANTED_IMPORTS: `${PLUGIN_NAME}/${RESTRICT_UNWANTED_IMPORTS}`,
 };

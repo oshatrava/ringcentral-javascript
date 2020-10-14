@@ -1,8 +1,6 @@
-'use strict';
-
-// const path = require('path');
-
-const IMPORT_DECLARATION = 'ImportDeclaration';
+const {PLUGIN_NAME} = require('../constants/plugin');
+const {getContextInfo} = require('../helpers/rules');
+const {getDependencyInfo} = require('../helpers/elements');
 
 module.exports = {
     meta: {
@@ -16,64 +14,42 @@ module.exports = {
         },
     },
     create: function (context) {
-        const cwd = context.getCwd();
-        const source = context.getSourceCode();
-        const filename = context.getFilename();
-        // const pathToFile = path.resolve(filename);
-
-        const importList = new Map();
-
-        function reportMissingComment(node) {
-            context.report({
-                node,
-                messageId: 'missingJSDocPublicComment'
-            });
-        }
-
-        function hasCommentBefore(node, sourceCode) {
-            return sourceCode.getCommentsBefore(node).some(comment => {
-                return (
-                    node.type === 'Block' &&
-                    node.value.charAt(0) === '*' &&
-                    node.value.includes('@public') &&
-                    comment.loc.end.line >= node.loc.start.line - 1
-                )
-            })
-        }
-
-        function checkUsage(node) {
-            if (!hasCommentBefore(node, source)) {
-                reportMissingComment(node)
-            }
-        }
-
-        function extractImports(programNode) {
-            const imports = []
-
-            for (const item of programNode.body) {
-                if (item.type === IMPORT_DECLARATION) {
-                    imports.push(item);
-                }
-            }
-
-            return imports;
-        }
+        const {fileName, currentElementInfo} = getContextInfo(context);
 
         return {
-            'Program': node => {
-                for (const imports of extractImports(node)) {
-                    // console.log(imports);
+            'ImportDeclaration': (node) => {
+                const dependencyInfo = getDependencyInfo(fileName, node.source.value, context.settings);
+                console.log({dependencyInfo});
+
+                if (
+                    dependencyInfo.isLocal &&
+                    !dependencyInfo.isIgnored
+                ) {
+                    context.report({
+                        node,
+                        type: PLUGIN_NAME,
+                        messageId: 'missingJSDocPublicComment'
+                      });
                 }
             },
-            'ImportDeclaration': node => {
-                // console.log(node.source.value);
-            },
-            'ExportNamedDeclaration': node => {
-                checkUsage(node);
-            },
-            'ExportDefaultDeclaration': node => {
-                checkUsage(node);
-            }
+            // 'ExportNamedDeclaration': node => {
+            //     checkUsage(node);
+            // },
+            // 'ExportDefaultDeclaration': node => {
+            //     checkUsage(node);
+            // }
         };
     }
 };
+
+
+// function hasCommentBefore(node, sourceCode) {
+//     return sourceCode.getCommentsBefore(node).some(comment => {
+//         return (
+//             node.type === 'Block' &&
+//             node.value.charAt(0) === '*' &&
+//             node.value.includes('@public') &&
+//             comment.loc.end.line >= node.loc.start.line - 1
+//         )
+//     })
+// }

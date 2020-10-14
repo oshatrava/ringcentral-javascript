@@ -1,3 +1,5 @@
+const {PLUGIN_NAME} = require('../constants/plugin');
+
 /**
  * @fileoverview plugin for ringcentral products
  * @author ledamint
@@ -36,6 +38,7 @@ module.exports = {
                         if (!comment.match(jiraIdTaskRegex) && !comment.match(/\(.+\)/)) {
                             context.report({
                                 node,
+                                type: PLUGIN_NAME,
                                 messageId: 'specifyComment'
                             });
                         }
