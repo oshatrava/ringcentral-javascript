@@ -2,7 +2,7 @@ const {
     SPECIFIED_COMMENT_WITH_TASK_ID,
 } = require('../constants/settings');
 
-const recomendedConfig = require('./recomended');
+const recomendedConfig = require('./recommended');
 
 module.exports = {
     ...recomendedConfig,

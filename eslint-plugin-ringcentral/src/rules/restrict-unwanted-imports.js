@@ -24,7 +24,7 @@ module.exports = {
             'ImportDeclaration': (node) => {
                 const dependencyInfo = getDependencyInfo(fileName, node.source.value, context.settings);
 
-                console.log(sourceCode.getCommentsBefore(node));
+                // console.log(sourceCode.getCommentsBefore(node));
 
                 if (
                     dependencyInfo.isLocal &&

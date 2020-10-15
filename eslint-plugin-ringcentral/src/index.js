@@ -1,6 +1,6 @@
 const rules = require('./constants/rules');
 const strictConfig = require('./configs/strict');
-const recommendedConfig = require('./configs/recomended');
+const recommendedConfig = require('./configs/recommended');
 
 const importRules = (ruleNames) => {
     return Object.keys(ruleNames).reduce((loadedRules, ruleKey) => {
@@ -14,5 +14,7 @@ module.exports = {
     configs: {
         strict: strictConfig,
         recommended: recommendedConfig,
+        // TODO: (oleg.shatrava) Remove it line after merge to main repo and replace on "recommended"
+        all: recommendedConfig,
     }
 };

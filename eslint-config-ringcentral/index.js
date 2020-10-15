@@ -302,7 +302,7 @@ module.exports = {
 
         // https://github.com/SonarSource/eslint-plugin-sonarjs/blob/master/docs/rules/cognitive-complexity.md
         'sonarjs/cognitive-complexity': 'warn',
-        
+
         // https://github.com/SonarSource/eslint-plugin-sonarjs/blob/master/docs/rules/no-identical-functions.md
         'sonarjs/no-identical-functions': 'warn',
 
