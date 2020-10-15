@@ -23,6 +23,10 @@ const isChildDependency = (elementInfo, dependencyInfo) => {
     return elementInfo.self === getLastParent(dependencyInfo);
 };
 
+const isNotRecognizedOrIgnored = (elementInfo) => {
+    return !elementInfo.type || elementInfo.isIgnored;
+};
+
 const getElementInfo = (filePath, settings) => {
     return getElementPathInfo(filePath, settings);
 };
@@ -55,10 +59,6 @@ const getDependencyInfo = (filePath, dependencyPath, settings) => {
     }
 
     return dependencyPathInfo;
-};
-
-const isNotRecognizedOrIgnored = (elementInfo) => {
-    return !elementInfo.type || elementInfo.isIgnored;
 };
 
 module.exports = {

@@ -12,6 +12,7 @@
   "main": "index.js",
   "scripts": {
     "test": "jest",
+    "test:watch": "npm run test -- --watch",
     "test:coverage": "npm run test -- --coverage",
     "test:ci": "npm run test -- --ci",
     "lint": "eslint index.js src *.js",

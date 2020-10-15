@@ -1,6 +1,6 @@
 const {PLUGIN_NAME} = require('../constants/plugin');
 const {getContextInfo} = require('../helpers/rules');
-const {getDependencyInfo} = require('../helpers/elements');
+const {getDependencyInfo, isNotRecognizedOrIgnored} = require('../helpers/elements');
 
 module.exports = {
     meta: {
@@ -9,35 +9,34 @@ module.exports = {
             recommended: false,
         },
         messages: {
-            missingJSDocPublicComment: 'Missing JSDoc @public comment.',
+            // missingJSDocPublicComment: 'Missing JSDoc @public comment.',
             unwantedImport: 'Restrict unwanted imports from another module.'
         },
     },
     create: function (context) {
         const {fileName, currentElementInfo} = getContextInfo(context);
+        if (isNotRecognizedOrIgnored(currentElementInfo)) {
+            return {};
+        }
 
         return {
             'ImportDeclaration': (node) => {
                 const dependencyInfo = getDependencyInfo(fileName, node.source.value, context.settings);
-                console.log({dependencyInfo});
 
                 if (
                     dependencyInfo.isLocal &&
-                    !dependencyInfo.isIgnored
+                    !dependencyInfo.isIgnored &&
+                    !dependencyInfo.isInternal &&
+                    !dependencyInfo.isChild
                 ) {
+                    // console.log({dependencyInfo});
                     context.report({
                         node,
                         type: PLUGIN_NAME,
-                        messageId: 'missingJSDocPublicComment'
-                      });
+                        messageId: 'unwantedImport'
+                    });
                 }
             },
-            // 'ExportNamedDeclaration': node => {
-            //     checkUsage(node);
-            // },
-            // 'ExportDefaultDeclaration': node => {
-            //     checkUsage(node);
-            // }
         };
     }
 };
