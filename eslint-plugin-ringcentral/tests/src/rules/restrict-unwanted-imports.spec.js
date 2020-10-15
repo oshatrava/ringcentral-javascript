@@ -1,5 +1,5 @@
 const {RESTRICT_UNWANTED_IMPORTS: RULE_NAME} = require('../../../src/constants/rules');
-const {absoluteFilePath, createRuleTester} = require('../helpers');
+const {createRuleTester, absoluteFilePath, relativeFilePath} = require('../helpers');
 const rule = require(`../../../src/rules/${RULE_NAME}`);
 
 const ruleTesters = createRuleTester();

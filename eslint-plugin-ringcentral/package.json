@@ -12,11 +12,14 @@
   "main": "index.js",
   "scripts": {
     "test": "jest",
-    "test:watch": "npm run test -- --watch",
-    "test:coverage": "npm run test -- --coverage",
-    "test:ci": "npm run test -- --ci",
+    "test:watch": "yarn test --watch",
+    "test:coverage": "yarn test --coverage",
+    "test:ci": "yarn test --ci",
     "lint": "eslint index.js src *.js",
     "lint-staged": "lint-staged"
+  },
+  "dependencies": {
+    "globule": "^1.3.2"
   },
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "2.24.0",
@@ -38,13 +41,10 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "npm run lint-staged"
+      "pre-commit": "yarn lint-staged"
     }
   },
   "engines": {
     "node": ">=8.0.0"
-  },
-  "dependencies": {
-    "globule": "^1.3.2"
   }
 }

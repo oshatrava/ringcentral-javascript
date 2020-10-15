@@ -14,6 +14,7 @@ module.exports = {
         },
     },
     create: function (context) {
+        const sourceCode = context.getSourceCode();
         const {fileName, currentElementInfo} = getContextInfo(context);
         if (isNotRecognizedOrIgnored(currentElementInfo)) {
             return {};
@@ -22,6 +23,8 @@ module.exports = {
         return {
             'ImportDeclaration': (node) => {
                 const dependencyInfo = getDependencyInfo(fileName, node.source.value, context.settings);
+
+                console.log(sourceCode.getCommentsBefore(node));
 
                 if (
                     dependencyInfo.isLocal &&
@@ -42,13 +45,13 @@ module.exports = {
 };
 
 
-// function hasCommentBefore(node, sourceCode) {
-//     return sourceCode.getCommentsBefore(node).some(comment => {
-//         return (
-//             node.type === 'Block' &&
-//             node.value.charAt(0) === '*' &&
-//             node.value.includes('@public') &&
-//             comment.loc.end.line >= node.loc.start.line - 1
-//         )
-//     })
-// }
+function hasCommentBefore(node, sourceCode) {
+    return sourceCode.getCommentsBefore(node).some(comment => {
+        return (
+            node.type === 'Block' &&
+            node.value.charAt(0) === '*' &&
+            node.value.includes('@public') &&
+            comment.loc.end.line >= node.loc.start.line - 1
+        )
+    })
+}
