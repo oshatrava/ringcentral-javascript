@@ -1,7 +1,6 @@
 const {getElementPathInfo, getDependencyPathInfo} = require('./path');
 
 const getLastParent = (elementInfo) => {
-    console.log({elementInfo});
     return elementInfo.parents && elementInfo.parents[0];
 };
 

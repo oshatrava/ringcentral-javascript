@@ -52,13 +52,6 @@ const getDependencyAbsolutePath = (filePath, dependencyPath, settings) => {
     const fileFolder = getFileFolder(filePath);
     const absoluteFilePath = path.resolve(fileFolder, dependencyPath);
 
-    // return (
-    //     // existingPath(addFileExtension(absoluteFilePath)) ||
-    //     // existingPath(addIndexFileToPath(absoluteFilePath)) ||
-    //     existingPath(absoluteFilePath) ||
-    //     absoluteFilePath
-    // );
-
     return existingPath(absoluteFilePath) || absoluteFilePath;
 };
 
@@ -73,8 +66,8 @@ const getElementType = (relativePath) => {
 const getLastTypeAndName = (folders, settings, index, parentElements = []) => {
     const startIndex = typeof index !== 'undefined' ? index : folders.length;
     if (
-        // Array.isArray(settings[TYPES]) &&
-        // settings[TYPES].includes(folders[startIndex]) &&
+        Array.isArray(['modules']) &&
+        ['modules'].includes(folders[startIndex]) &&
         folders[startIndex + 1]
     ) {
         parentElements.push(folders.slice(0, startIndex + 2).join(PATH_SEP));

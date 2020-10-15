@@ -1,12 +1,13 @@
-const RuleTester = require('eslint').RuleTester;
-const rule = require('../../src/rules/specified-comment-with-task-id');
+const {SPECIFIED_COMMENT_WITH_TASK_ID: RULE_NAME} = require('../../../src/constants/rules');
+const {createRuleTester} = require('../helpers');
+const rule = require(`../../../src/rules/${RULE_NAME}`);
 
-const ruleTester = new RuleTester();
+const ruleTester = createRuleTester();
 const error = {
     messageId: 'specifyComment'
 };
 
-ruleTester.run('specified-comment-with-task-id', rule, {
+ruleTester.run(RULE_NAME, rule, {
     valid: [
         '// TODO [RLZ-12345]',
         '// todo [RLZ-12345]',
