@@ -64,10 +64,11 @@ const getElementType = (relativePath) => {
   };
 
 const getLastTypeAndName = (folders, settings, index, parentElements = []) => {
+    const type = ['modules'];
     const startIndex = typeof index !== 'undefined' ? index : folders.length;
     if (
-        Array.isArray(['modules']) &&
-        ['modules'].includes(folders[startIndex]) &&
+        Array.isArray(type) &&
+        type.includes(folders[startIndex]) &&
         folders[startIndex + 1]
     ) {
         parentElements.push(folders.slice(0, startIndex + 2).join(PATH_SEP));

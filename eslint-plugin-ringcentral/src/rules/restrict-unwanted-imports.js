@@ -24,15 +24,17 @@ module.exports = {
             'ImportDeclaration': (node) => {
                 const dependencyInfo = getDependencyInfo(fileName, node.source.value, context.settings);
 
-                // console.log(sourceCode.getCommentsBefore(node));
+                const specifiersList = getSpecifiersFromImport(node);
+                console.log({specifiersList});
+                // console.log(hasCommentBefore(node, sourceCode));
 
+                console.log({dependencyInfo});
                 if (
                     dependencyInfo.isLocal &&
                     !dependencyInfo.isIgnored &&
                     !dependencyInfo.isInternal &&
                     !dependencyInfo.isChild
                 ) {
-                    // console.log({dependencyInfo});
                     context.report({
                         node,
                         type: PLUGIN_NAME,
@@ -43,6 +45,12 @@ module.exports = {
         };
     }
 };
+
+function getSpecifiersFromImport(node) {
+    return node.specifiers.map((importSpecifier) => {
+        return importSpecifier.local.name;
+    })
+}
 
 
 function hasCommentBefore(node, sourceCode) {

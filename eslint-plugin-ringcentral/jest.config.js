@@ -1,7 +1,7 @@
 module.exports = {
   verbose: true,
   clearMocks: true,
-  collectCoverageFrom: ["src/rules/**"],
+  collectCoverageFrom: ["src/**"],
   coverageDirectory: "coverage",
   testEnvironment: "node",
   testMatch: ["**/tests/**/*.spec.js"],
